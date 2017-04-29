@@ -43,16 +43,19 @@ typedef map<string, int> msi; //map from string to int
 //memset(arr, 0, sizeof arr); // useful to clear array 
 
 int main() {
-	vi monster;
-	vii pokemon;
-	REP(hello, 0, 10) {
-		monster.push_back(hello);
-	}
-	TRvi(monster, it) {
-		pokemon.push_back(make_pair(*it, *it));
-	}
-
-	TRvii(pokemon, it) {
-		cout<<it->first<<it->second<<endl;
+	bool isLeft = true;
+	char c;
+	while(cin.get(c)) {
+		if (c=='"') {
+			if (isLeft) {
+				cout << "``";
+				isLeft = false;
+			} else {
+				cout << "\'\'";
+				isLeft = true;
+			}
+		} else {
+			cout<<c;
+		}
 	}
 }

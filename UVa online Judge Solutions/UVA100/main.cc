@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
-#include <algorithm>
 using namespace std;
 //Common data types in shortcut form
 typedef long long ll; 
@@ -42,17 +41,41 @@ typedef map<string, int> msi; //map from string to int
 //memset(dp_memo, -1, sizeof dp_memo); // useful to initialize DP memoization table
 //memset(arr, 0, sizeof arr); // useful to clear array 
 
-int main() {
-	vi monster;
-	vii pokemon;
-	REP(hello, 0, 10) {
-		monster.push_back(hello);
+//return the cost of the cycle
+ll getCycle(map<ll,ll> & array, ll n) {
+	if (array[n] > 0) {
+		return array[n];
 	}
-	TRvi(monster, it) {
-		pokemon.push_back(make_pair(*it, *it));
+	ll m;
+	if (n % 2 == 0) {
+		m = n / 2;
+	} else {
+		m = 3 * n + 1;
 	}
+	array[n] = 1 + getCycle (array, m);
+	return array[n];
+}
 
-	TRvii(pokemon, it) {
-		cout<<it->first<<it->second<<endl;
+ int main() {
+// 	ll dp_memo[10000000];
+// 	memset(dp_memo, -1, 10000000 * sizeof(ll));
+	map<ll,ll> dp_memo;
+	dp_memo[1] = 1;
+	ll i;
+	ll j;
+	while (cin>>i>>j) {
+		cout << i << " " << j << " ";
+		ll q = -1;
+		if (i < j) {
+			for(ll a= i; a<=j ; a++) {
+				q = max(getCycle(dp_memo, a), q);
+			}
+		} else {
+			for(ll a= j; a<=i ; a++) {
+				q = max(getCycle(dp_memo, a), q);
+			}
+		}
+		cout<<q<<endl;
 	}
+	return 0;
 }

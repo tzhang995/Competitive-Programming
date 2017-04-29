@@ -1,4 +1,6 @@
-#define _CRT_SECURE_NO_DEPRECATE //suppress compilation warnings for VC++
+//Rod Cutting Problem
+//Given a rod of length n, and a table of prices pi fpr i = 1..n
+//determine the maximum revenue rn obtained by cutting up the rods
 
 #include <vector>
 #include <utility>
@@ -9,7 +11,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <algorithm>
+#include <climits>
 using namespace std;
+
 //Common data types in shortcut form
 typedef long long ll; 
 typedef vector<int> vi;//vector of ints
@@ -42,17 +46,58 @@ typedef map<string, int> msi; //map from string to int
 //memset(dp_memo, -1, sizeof dp_memo); // useful to initialize DP memoization table
 //memset(arr, 0, sizeof arr); // useful to clear array 
 
-int main() {
-	vi monster;
-	vii pokemon;
-	REP(hello, 0, 10) {
-		monster.push_back(hello);
+//Bad for n large
+int rodCuttingRecursiveTopDown(int p [], int n) {
+	if (n == 0) return 0;
+	int q = -1;
+	for(int i = 1; i <= n; i++) {
+		q = max(q, p[i] + rodCuttingRecursiveTopDown(p, n-i));
 	}
-	TRvi(monster, it) {
-		pokemon.push_back(make_pair(*it, *it));
-	}
+	return q;
+}
 
-	TRvii(pokemon, it) {
-		cout<<it->first<<it->second<<endl;
+//Uses a tracking array
+int memoizedCutRod(int p [], int n, int r[]) {
+	if (r[n] >= 0) {
+		return r[n];
 	}
+	int q = 0;
+	if (n != 0) {
+		q = INT_MIN;
+		REP(i,1,n) {
+			q = max(q,p[i] + memoizedCutRod(p,n-i,r));
+		}
+	}
+	r[n] = q;
+	return q;
+}
+
+//BottomUp 
+int bottomUpCutRod(int p[], int n) {
+	int newArray[n+1];
+	newArray[0] = 0;
+	REP(j,1,n) {
+		q = -1;
+		REP(i, 1, j) {
+			q = max(q, p[i] + r[j-i] )
+		}
+		r[j] = q;
+	}
+	return r[n];
+}
+
+int main () {
+	int dp_memo[9999];
+	memset(dp_memo, -1, 9999 * sizeof(int));
+	int numPrices;
+	cin>>numPrices;
+	for (int i = 1; i <= numPrices; i++) {
+		cin>>dp_memo[i];
+	}
+	// cout<<rodCuttingRecursiveTopDown(dp_memo, numPrices);
+
+	int r[9999];
+	memset(r, -1, 9999 * sizeof(int));
+
+	cout<<memoizedCutRod(dp_memo, numPrices, r)<<endl;
 }
