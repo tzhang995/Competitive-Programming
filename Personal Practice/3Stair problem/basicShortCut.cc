@@ -1,3 +1,6 @@
+//A Child is running up a staircase with n steps and can hop either 1 step, 2 steps, 3 steps at a time
+//Implement a method to count how many possible ways the child can run up the stairs.
+
 #define _CRT_SECURE_NO_DEPRECATE //suppress compilation warnings for VC++
 
 #include <bits/stdc++.h>
@@ -34,17 +37,24 @@ typedef map<string, int> msi; //map from string to int
 //memset(dp_memo, -1, sizeof dp_memo); // useful to initialize DP memoization table
 //memset(arr, 0, sizeof arr); // useful to clear array 
 
-int main() {
-	vi monster;
-	vii pokemon;
-	REP(hello, 0, 10) {
-		monster.push_back(hello);
-	}
-	TRvi(monster, it) {
-		pokemon.push_back(make_pair(*it, *it));
-	}
+//Bottom Up Approach
+unsigned long long getSteps(unsigned long long n) {
+	unsigned long long dp_memo [9999];
 
-	TRvii(pokemon, it) {
-		cout<<it->first<<it->second<<endl;
+	dp_memo[1] = 1;
+	dp_memo[2] = 2;
+	dp_memo[3] = 4;
+
+	for(unsigned long long i = 4; i<= n; i++) {
+		dp_memo[i] = dp_memo[i-1] + dp_memo[i-2] + dp_memo[i-3];
 	}
+	return dp_memo[n];
+
+
+}
+
+int main() {
+	unsigned long long i;
+	cin>>i;
+	cout<<getSteps(i)<<endl;
 }

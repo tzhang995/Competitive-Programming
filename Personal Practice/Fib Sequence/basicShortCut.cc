@@ -2,6 +2,7 @@
 
 #define _CRT_SECURE_NO_DEPRECATE //suppress compilation warnings for VC++roduci
 
+//#include <bits/stdc++.h>
 #include <vector>
 #include <utility>
 #include <set>
@@ -56,11 +57,13 @@ long long getFibNumberNoDP(long long n){
 	return getFibNumberNoDP(n-1) + getFibNumberNoDP(n-2);
 }
 
-long long getFibNumberDP(long long dpMemo[], long long n){
+
+//TOp down Approach
+unsigned long long getFibNumberDP(unsigned long long dpMemo[], unsigned long long n){
 	if (dpMemo[n] != -1) {
 		return dpMemo[n];
 	}
-	long long returnNum;
+	unsigned long long returnNum;
 	if (n == 0){
 		returnNum = 0;
 	}else if (n == 1) {
@@ -70,15 +73,28 @@ long long getFibNumberDP(long long dpMemo[], long long n){
 	}
 	dpMemo[n] = returnNum;
 	return returnNum;
+}
 
+///Bottom Up Approach
+unsigned long long getFibNumberDPBottomUp(unsigned long long dpMemo[], unsigned long long n){
+	dpMemo[0] = 0;
+	dpMemo[1] = 1;
 
+	for(unsigned long long i = 2; i <= n; i++) {
+		dpMemo[i] = dpMemo[i-1] + dpMemo[i-2];
+	}
+	return dpMemo[n];
 }
 
 int main() {
-	long long number;
-	long long dpMemo[9999];
-	memset(dpMemo, -1, sizeof(long long) * 9999);
+	unsigned long long number;
+	unsigned long long dpMemo[9999];
+	memset(dpMemo, -1, sizeof(unsigned long long) * 9999);
+
+	unsigned long long dpMemo2[9999];
+	memset(dpMemo2, -1, sizeof(unsigned long long) * 9999);
 
 	cin >> number;
-	cout<< getFibNumberDP(dpMemo, number);
+	cout<< getFibNumberDP(dpMemo, number)<<endl;
+	cout<<getFibNumberDPBottomUp(dpMemo2, number)<<endl;
 }
