@@ -1,0 +1,51 @@
+/*
+You have 3 towers and N disks of different sizes which can slide onto any tower.
+The puzzle starts with disks sorted in ascending order of size from top to bottm.
+Constrains:
+1. Only one disk can be moved at a time
+2. A disk is slid off the top of one tower onto another tower
+3. A disk cannot be placed on top of a smaller disk.
+
+
+move the disks from the first tower to the last using stacks
+*/
+
+#define _CRT_SECURE_NO_DEPRECATE //suppress compilation warnings for VC++
+
+#include <bits/stdc++.h>
+using namespace std;
+//Common data types in shortcut form
+typedef long long ll; 
+typedef vector<int> vi;//vector of ints
+typedef pair<int, int> ii; //int int
+typedef vector<ii> vii; //vector of pair of int int
+typedef set<int> si;
+typedef map<string, int> msi; //map from string to int
+
+//Basic forloop, including the starting(a) and ending number(b) using i as the local variable
+#define REP(i, a, b) \
+	for(int i = int(a); i <= int(b); i++)
+
+//Basic Traverse Vector(c) using it as the pointer
+#define TRvi(c, it) \
+	for(vi::iterator it = (c).begin(); it != (c).end(); it++)
+
+//Traverse a vector of pairrpair
+#define TRvii(c, it) \
+	for(vii::iterator it = (c).begin(); it != (c).end(); it++)
+
+//Traverse A map of string to int
+#define TRmsi(c, it) \
+	for(msi::iterator it = (c).begin(); it != (c).end(); it++)
+
+#define INF 2000000000 // 2 billion
+// If you need to recall how to use memset:
+#define MEMSET_INF 127 // about 2B
+#define MEMSET_HALF_INF 63 // about 1B
+//memset(dist, MEMSET_INF, sizeof dist); // useful to initialize shortest path distances
+//memset(dp_memo, -1, sizeof dp_memo); // useful to initialize DP memoization table
+//memset(arr, 0, sizeof arr); // useful to clear array 
+
+int main() {
+
+}
